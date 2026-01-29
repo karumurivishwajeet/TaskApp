@@ -1,10 +1,48 @@
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
 public class TaskService
 {
     private List<TaskItem> tasks = new List<TaskItem>();
     private int nextId = 1;
+    private const string FilePath = "tasks.json";
+    
+    public TaskService()
+    {
+        LoadFromFile();
+    }
 
+    private void LoadFromFile()
+    {
+        if (!File.Exists(FilePath))
+        {
+            return;
+        }
+
+        string json = File.ReadAllText(FilePath);
+        List<TaskItem> loadedTasks = JsonSerializer.Deserialize<List<TaskItem>>(json);
+
+        if(loadedTasks != null)
+        {
+            tasks = loadedTasks;
+
+            if (tasks.Count>0)
+            {
+                nextId = tasks[^1].Id + 1;
+            }
+        }
+    }
+
+    private void SaveToFile()
+    {
+        string json = JsonSerializer.Serialize(tasks, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        });
+
+        File.WriteAllText(FilePath, json);
+    }
     public List<TaskItem> GetAll()
     {
         return tasks;
@@ -24,7 +62,7 @@ public class TaskService
 
         nextId++;
         tasks.Add(task);
-
+        SaveToFile();
         return task;
     }
 
@@ -45,6 +83,7 @@ public class TaskService
             return false;
         }
         tasks.Remove(found);
+        SaveToFile();
         return true;
     }
 
@@ -58,6 +97,7 @@ public class TaskService
                 return true;
             }
         }
+        SaveToFile();
         return false;
     }
 
@@ -75,7 +115,7 @@ public class TaskService
                 return true;
             }
         }
-
+        SaveToFile();
         return false;
     }
 }

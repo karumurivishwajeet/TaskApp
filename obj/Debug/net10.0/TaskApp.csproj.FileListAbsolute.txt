@@ -27,6 +27,8 @@
 /Users/vishwajeet/DevLearning/TaskApp/obj/Debug/net10.0/TaskApp.genruntimeconfig.cache
 /Users/vishwajeet/DevLearning/TaskApp/obj/Debug/net10.0/ref/TaskApp.dll
 /Users/vishwajeet/DevLearning/TaskApp/bin/Debug/net10.0/TaskApp.staticwebassets.runtime.json
-/Users/vishwajeet/DevLearning/TaskApp/obj/Debug/net10.0/compressed/tx6k2xy46x-{0}-o05m58tgck-o05m58tgck.gz
-/Users/vishwajeet/DevLearning/TaskApp/obj/Debug/net10.0/compressed/50ad7di7wt-{0}-3jlc9ipf1t-3jlc9ipf1t.gz
 /Users/vishwajeet/DevLearning/TaskApp/obj/Debug/net10.0/compressed/b020jdl3nk-{0}-04rlrznxmo-04rlrznxmo.gz
+/Users/vishwajeet/DevLearning/TaskApp/obj/Debug/net10.0/TaskApp.sourcelink.json
+/Users/vishwajeet/DevLearning/TaskApp/bin/Debug/net10.0/tasks.json
+/Users/vishwajeet/DevLearning/TaskApp/obj/Debug/net10.0/compressed/tx6k2xy46x-{0}-nf5erpwlvx-nf5erpwlvx.gz
+/Users/vishwajeet/DevLearning/TaskApp/obj/Debug/net10.0/compressed/50ad7di7wt-{0}-4zt4ff0j7t-4zt4ff0j7t.gz

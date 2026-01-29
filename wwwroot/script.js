@@ -1,3 +1,19 @@
+function showSuccess(message) {
+    document.getElementById("errorMsg").textContent="";
+    const el = document.getElementById("successMsg");
+    el.textContent = message;
+
+    setTimeout(()=>{
+        el.textContent="";
+    }, 3000);
+}
+
+function showError (message){
+    document.getElementById("successMsg").textContent="";
+    const el = document.getElementById("errorMsg");
+    el.textContent = message;
+}
+
 function loadTasks(){
     fetch("/tasks")
         .then(res=> res.json())
@@ -15,9 +31,11 @@ function loadTasks(){
                 checkbox.onchange = function(){
                     fetch("/tasks/" + t.id + "/toggle", {
                         method: "PUT"
-                    }).then(() => {
+                    }).then(res => {
+                        if(!res.ok) throw "Failed to update task";
                         loadTasks();
-                    });    
+                    })
+                    .catch(err=>showError(err));    
                 }
 
 
@@ -38,6 +56,9 @@ function loadTasks(){
                 const editBtn = document.createElement("button");
                 editBtn.textContent = "Edit";
 
+                const cancelBtn = document.createElement("button");
+                cancelBtn.textContent = "Cancel";
+
                 editBtn.onclick = function(){
 
                     const input = document.createElement("input");
@@ -55,6 +76,7 @@ function loadTasks(){
                     li.replaceChild(input, titleSpan);
                     li.insertBefore(errorMsgEdit, input);
                     li.replaceChild(saveBtn, editBtn);
+                    li.insertBefore(cancelBtn, saveBtn.nextSibling);
 
                     saveBtn.onclick = function(){
                         const newTitle = input.value.trim();
@@ -69,8 +91,30 @@ function loadTasks(){
                             method: "PUT",
                             headers:{"Content-Type": "application/json"},
                             body: JSON.stringify({title: newTitle})
-                        }).then(loadTasks);
+                        }).then(res =>{
+                            if(!res.ok){
+                                return res.text().then(msg => {throw msg});
+                            }
+                            showSuccess("Task updated");
+                            loadTasks();
+                        })
+                        .catch(err=>{
+                            errorMsgEdit.textContent = err;
+                        });
+
+                        
                     }
+                    cancelBtn.onclick = function () {
+                        li.replaceChild(titleSpan, input);
+
+                        errorMsgEdit.remove();
+
+                        li.replaceChild(editBtn, saveBtn);
+
+                        cancelBtn.remove();
+                    };
+
+                    
 
                     // const newTitle = prompt("Edit task title:", t.title);
                     // if(!newTitle) return;
@@ -89,11 +133,13 @@ function loadTasks(){
 }
 
 function addTask() {
-    const title = document.getElementById("title").value.trim();
-    const errorMsg = document.getElementById("errorMsg");
+    const input = document.getElementById("title").value;
+    const title = input.trim();
+    //const errorMsg = document.getElementById("errorMsg");
 
     if(title === ""){
-        errorMsg.textContent = "Field empty";
+        showError("Field empty");
+        //errorMsg.textContent = "Field empty";
         //console.log("no issues");
         return;
     }
@@ -102,18 +148,36 @@ function addTask() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title: title })
-    }).then(() => {
-        document.getElementById("title").value = "";
+    }).then(res => {
+        if(!res.ok){
+            return res.text().then(msg =>{throw msg;});
+        }
+        return res.json();
+    })
+    .then(()=>{
+        showSuccess("Task added");
+        input.value = "";
         loadTasks();
+    })
+    .catch(err=>{
+        showError(err);
     });
 }
 
 function deleteTask(id) {
+    if(!confirm("Are you sure you wanna delete the task?")){
+        return;
+    }
     fetch("/tasks/" + id, {
         method: "DELETE"
-    }).then(() => {
+    }).then(res => {
+        if(!res.ok){
+            throw "Failed to delete the task";
+        }
+        showSuccess("Task deleted");
         loadTasks();
-    });
+    })
+    .catch(err => showError(err));
 }
 
 loadTasks();
