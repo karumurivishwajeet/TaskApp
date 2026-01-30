@@ -5,7 +5,7 @@ The app allows users to create, edit, delete, search, filter, and organize tasks
 
 ---
 
-## 🚀 Features
+## Features
 
 - Create, edit, and delete tasks
 - Mark tasks as completed
@@ -21,7 +21,7 @@ The app allows users to create, edit, delete, search, filter, and organize tasks
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 **Backend**
 - C#
@@ -37,7 +37,7 @@ The app allows users to create, edit, delete, search, filter, and organize tasks
 
 ---
 
-## ▶️ How to Run the Project
+## ▶How to Run the Project
 
 ### Prerequisites
 - .NET SDK 8.0 or later
