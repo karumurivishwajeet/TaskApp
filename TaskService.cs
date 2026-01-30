@@ -48,10 +48,12 @@ public class TaskService
         return tasks;
     }
 
-    public TaskItem Add(string title)
+    public TaskItem Add(string title, string priority, DateTime? dueDate)
     {
         TaskItem task = new TaskItem();
         task.IsCompleted = false;
+        task.Priority = string.IsNullOrWhiteSpace(priority) ? "Medium": priority;
+        task.DueDate = dueDate;
 
         if (string.IsNullOrWhiteSpace(title))
         {
@@ -101,8 +103,9 @@ public class TaskService
         return false;
     }
 
-    public bool UpdateTitle(int id, string newTitle)
+    public bool UpdateTitle(int id, string newTitle, string newPriority, DateTime? dueDate)
     {
+        
         if (string.IsNullOrWhiteSpace(newTitle))
         {
             return false;
@@ -112,10 +115,13 @@ public class TaskService
             if (task.Id == id)
             {
                 task.Title = newTitle;
+                task.Priority = string.IsNullOrWhiteSpace(newPriority)?task.Priority:newPriority;
+                task.DueDate = dueDate;
+                SaveToFile();
                 return true;
             }
         }
-        SaveToFile();
+
         return false;
     }
 }

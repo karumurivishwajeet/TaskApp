@@ -1,12 +1,38 @@
 [
   {
-    "Id": 4,
-    "Title": "Code",
-    "IsCompleted": false
+    "Id": 9,
+    "Title": "Clean",
+    "IsCompleted": false,
+    "Priority": "Low"
   },
   {
-    "Id": 5,
-    "Title": "Clean",
-    "IsCompleted": false
+    "Id": 10,
+    "Title": "Study",
+    "IsCompleted": false,
+    "Priority": "Medium"
+  },
+  {
+    "Id": 11,
+    "Title": "Eat",
+    "IsCompleted": false,
+    "Priority": "Low"
+  },
+  {
+    "Id": 12,
+    "Title": "Dance",
+    "IsCompleted": false,
+    "Priority": "Low"
+  },
+  {
+    "Id": 13,
+    "Title": "Washing",
+    "IsCompleted": false,
+    "Priority": "Medium"
+  },
+  {
+    "Id": 14,
+    "Title": "Coding",
+    "IsCompleted": false,
+    "Priority": "Medium"
   }
 ]

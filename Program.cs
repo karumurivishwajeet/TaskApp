@@ -17,7 +17,7 @@ app.MapGet("/tasks", () =>
 
 app.MapPost("/tasks", (TaskItem task) =>
 {
-    TaskItem created = service.Add(task.Title);
+    TaskItem created = service.Add(task.Title, task.Priority, task.DueDate);
     if (created == null)
     {
         return Results.BadRequest("Task title cannot be empty");
@@ -50,7 +50,7 @@ app.MapPut("/tasks/{id}/toggle", (int id) =>
 
 app.MapPut("/tasks/{id}", (int id, TaskItem task) =>
 {
-    bool updated = service.UpdateTitle(id, task.Title);
+    bool updated = service.UpdateTitle(id, task.Title, task.Priority, task.DueDate);
 
     if (!updated)
     {

@@ -7,8 +7,36 @@
 
 <p id="successMsg" style="color: green;"></p>
 <p id="errorMsg" style="color: red;"></p>
-<input id="title" />
+<input id="title" onkeydown="handleAddKey(event)"/>
+<select id="priority">
+    <option value="Low">Low</option>
+    <option value="Medium" selected>Medium</option>
+    <option value="High">High</option>
+</select>
+<input type="date" id="dueDate">
 <button onclick="addTask()">Add</button>
+
+<input
+  type="text"
+  id="searchBox"
+  placeholder="Search tasks..."
+  oninput="searchTasks()"
+/>
+
+<div>
+  <button onclick="setStatusFilter('all')">All</button>
+  <button onclick="setStatusFilter('completed')">Completed</button>
+  <button onclick="setStatusFilter('pending')">Pending</button>
+</div>
+
+<select onchange="setSort(this.value)">
+  <option value="none">Sort by</option>
+  <option value="title">Title (A-Z)</option>
+  <option value="priority">Priority</option>
+  <option value="dueDate">Due Date</option>
+</select>
+
+<p id="loadingMsg" style="display:none;">Loading...</p>
 
 <ul id="list"></ul>
 
